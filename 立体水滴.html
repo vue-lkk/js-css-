@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      background-color: #00a8ff;
+    }
+    .water{
+      margin-top: 200px;
+      width: 150px;
+      height: 150px;
+      text-align: center;
+      line-height: 150px;
+      /* 生成不规则的矩形，下面是网站地址 */
+      /* https://9elements.github.io/fancy-border-radius/ */
+      border: 1px solid #000;
+      border-radius: 30% 70% 62% 38% / 30% 30% 70% 70% ;
+      box-shadow: inset 10px 20px 30px rgba(0, 0, 0, 0.5),
+                  10px 10px 20px rgba(0, 0, 0, 0.3),
+                  15px 15px 30px rgba(0, 0, 0, 0.05),
+                  inset -10px -10px 15px rgba(255, 255, 255, 0.8);
+      animation: action 3s linear infinite;
+    }
+    .water::after{
+      content: '';
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      top: 250px;
+      left: 43%;
+      background-color: rgba(255, 255, 255, .8);
+      border-radius: 100% 0% 100% 0% / 100% 0% 100% 0% ;
+    }
+    .water::before{
+      content: '';
+      width: 10px;
+      height: 10px;
+      position: absolute;
+      top: 265px;
+      left: 47%;
+      background-color: rgba(255, 255, 255, .8);
+      border-radius: 41% 59% 64% 36% / 75% 48% 52% 25%  ;
+    }
+
+    @keyframes action {
+      25%{
+        border-radius: 24% 76% 29% 71% / 74% 52% 48% 26%  ;
+      }
+      50%{
+        border-radius: 30% 70% 62% 38% / 30% 30% 70% 70%  ;
+      }
+      100%{
+        border-radius: 24% 76% 29% 71% / 60% 45% 55% 40%  ;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="water">直聘</div>
+</body>
+</html>

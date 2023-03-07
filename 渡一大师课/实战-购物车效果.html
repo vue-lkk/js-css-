@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-bottom: 60px;
+        }
+
+        ul {
+            text-decoration: none;
+        }
+
+        .container-item {
+            width: 100%;
+            height: 120px;
+            margin: 5px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .container-item .cart {
+            width: 90%;
+            height: 120px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart .l {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .l .price {
+            color: red;
+            font-weight: 700;
+        }
+
+        .cart img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .cart .r {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 70px;
+        }
+
+        .r .img {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            background: url(./images//firefox.webp) no-repeat;
+            background-size: 20px 20px;
+        }
+
+        .nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 60px;
+            background: rgb(36, 35, 35);
+            display: flex;
+            color: aliceblue;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav .l {
+            display: flex;
+            justify-content: center;
+        }
+
+        .shopping {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background: rgb(129 104 104);
+            border-radius: 50%;
+            margin-top: -20px;
+            margin-left: 15px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .shopping::before {
+            /* 获取元素html的自定义属性值，通常与自定义属性data-*配合使用 */
+            content: attr(data-before);
+            position: absolute;
+            top: -6px;
+            left: 26px;
+            background: red;
+            text-align: center;
+            line-height: 24px;
+            font-size: 16px;
+            display: inline-block;
+            padding: 3px;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            transform: scale(0.6);
+            display: none;
+        }
+
+        .active::before {
+            display: block;
+        }
+
+        .animation {
+            animation: anm 1s ease-in-out;
+        }
+
+        /* 购物车动画 */
+        @keyframes anm {
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(0.8);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            75% {
+                transform: scale(0.9);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .price {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            margin-left: 5px;
+        }
+
+        .nav .r .go {
+            width: 120px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            background: rgb(49, 223, 72);
+            display: none;
+        }
+
+        .nav .r .is {
+            width: 120px;
+            height: 60px;
+            font-size: 13px;
+            text-align: center;
+            line-height: 60px;
+            background-color: rgb(70 68 68);
+            display: none;
+        }
+
+        .price span:nth-child(2) {
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        .decrease {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 20px;
+            font-weight: 700;
+            display: none;
+        }
+
+        .num {
+            display: none;
+            margin: 0 5px;
+        }
+
+        .active {
+            display: block !important;
+        }
+
+        .add-box {
+            width: 20px;
+            height: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transition: 0.5s linear;
+        }
+
+        .add-to-car {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: url('./images/firefox.webp');
+            background-size: 20px 20px;
+            border-radius: 50%;
+            transition: 0.5s cubic-bezier(0.5, -0.5, 1, 1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 商品列表 -->
+        <ul class="goods-list">
+        </ul>
+        <!-- 页脚 -->
+        <div class="nav">
+            <div class="l">
+                <div class="shopping">购物车</div>
+                <div class="price">
+                    <span class="totalPrice">￥33.00</span>
+                    <span class="deliveryPrice">配送要￥5</span>
+                </div>
+            </div>
+            <div class="r">
+                <div class="is active">还差￥30元起送</div>
+                <div class="go">去结算</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
+
+<script src="./data.js"></script>
+<script>
+    // 数据中缺少购物数量，避免修改原始数据，
+    // ---------构造函数（写法）---------
+    // function UIGoods(goods) {
+    //     this.data = goods
+    //     this.choose = 3
+    // }
+    // // 计算单件商品的总价（单价*数量）
+    // UIGoods.prototype.getTotalPrice = function() {
+    //     return this.data.price * this.choose
+    // }
+    // // 判断单件商品数量添加到购物车
+    // UIGoods.prototype.isChoose = function() {
+    //     return this.choose > 0
+    // }
+
+
+
+    // ----------类 (写法)---------
+    // 单件商品的数据
+    class UIGoods {
+        constructor(goods) {
+            this.data = goods // 商品数据
+            this.choose = 0   // 单个商品数量
+        }
+
+        // 计算单件商品的总价（单价*数量）
+        getTotalPrice() {
+            return this.data.price * this.choose
+        }
+
+        // 判断单件商品数量是否添加到购物车
+        isChoose() {
+            return this.choose > 0
+        }
+
+        // 选择单件的数量+1
+        increase() {
+            this.choose++
+        }
+
+        // 选择单件的数量-1
+        decrease() {
+            if (this.choose === 0) return
+            this.choose--
+        }
+    }
+
+
+    // 整个页面的数据
+    class UIData {
+        constructor() {
+            var uiGoods = []
+            for (var i = 0; i < goods.length; i++) {
+                var uig = new UIGoods(goods[i])
+                uiGoods.push(uig)
+            }
+            this.uiGoods = uiGoods // 带有商品数量的数据
+            this.upToSend = 30 //起送的门槛
+            this.deliveryPrice = 5 // 配送费
+        }
+
+        // 计算所有商品的总价
+        getTotalPrice() {
+            var sum = 0
+            for (var i = 0; i < this.uiGoods.length; i++) {
+                var g = this.uiGoods[i]
+                sum += g.getTotalPrice()
+            }
+            return sum
+        }
+
+        // 选择的数量+1
+        increase(index) {
+            this.uiGoods[index].increase()
+        }
+
+        // 选择的数量-1
+        decrease(index) {
+            this.uiGoods[index].decrease()
+        }
+
+        //  购物车中商品总数量
+        getTotalChooseNumber() {
+            return this.uiGoods.reduce((prev, next) => {
+                prev += next.choose
+                return prev
+            }, 0)
+        }
+
+        // 购物车中有没有商品
+        hasGoodsInCar() {
+            return this.getTotalChooseNumber() > 0
+        }
+
+        // 判断是否可以配送
+        isUpToSend() {
+            return this.getTotalPrice() >= this.upToSend
+        }
+
+        // 判断单件商品数量是否添加到购物车
+        isChoose(index) {
+            return this.uiGoods[index].isChoose()
+        }
+
+        // 计算购物车中所有件商品的总价
+        getTotalPrice() {
+            return this.uiGoods.reduce((prev, next) => {
+                return prev += next.getTotalPrice()
+            }, 0)
+        }
+
+        // 计算购物车中所有商品的数量
+        getTotalNum() {
+            return this.uiGoods.reduce((prev, next) => {
+                return prev += next.choose
+            }, 0)
+        }
+
+    }
+
+    // 整个界面
+    class UI {
+        constructor() {
+            this.uiData = new UIData()
+            console.log(this.uiData)
+            this.doms = {
+                goodsLists: document.querySelector('.goods-list'), // 获取到ul
+                deliveryPrice: document.querySelector('.deliveryPrice'), //配送费
+                totalPrice: document.querySelector('.totalPrice'),//商品总价
+                is: document.querySelector('.is'), //起送
+                go: document.querySelector('.go'),  //结算
+                car: document.querySelector('.shopping')//购物车
+            }
+
+            // 拿到购物车元素的矩形（宽高，坐标）
+            var carRect = this.doms.car.getBoundingClientRect();
+            var jumpTarget = {
+                x: carRect.left + carRect.width / 2,
+                y: carRect.top + carRect.height / 5
+            }
+            this.jumpTarget = jumpTarget
+
+            // 一开始就调用动态创建商品列表元素
+            this.createHTML()
+            // 一开始就调用更新页脚数据
+            this.updateFooter()
+            // 一开始就调用监听各种事件
+            this.listenEvent()
+
+        }
+
+        // 监听各种事件
+        listenEvent() {
+            // 监听购物车动画
+            this.doms.car.addEventListener('animationend', (e) => {
+                console.log(e)
+                this.doms.car.classList.remove('animation')
+            })
+        }
+
+        // 动态创建商品列表元素
+        createHTML() {
+            var html = ''
+            this.uiData.uiGoods.forEach((item, index) => {
+                html += `<li class="container-item">
+                <div class="cart">
+                    <div class="l">
+                        <img src="${item.data.pic}" alt="">
+                        <div>${item.data.title}</div>
+                        <div class="price">￥${item.data.price}</div>
+                    </div>
+                    <div class="r">
+                        <i class="decrease" data-index='${index}'>-</i>
+                        <i class="num">${item.choose}</i>
+                        <i class="img" data-index='${index}'></i>
+                    </div>
+                </div>
+            </li>`
+            });
+            this.doms.goodsLists.innerHTML = html
+        }
+        // 增加
+        increase(index) {
+            // 调用数量
+            this.uiData.increase(index)
+            // 调用更新商品（减和数量）显示状态
+            this.updateGoodsItem(index)
+            // 调用更新页脚数据
+            this.updateFooter()
+            // 调用元素跳转到购物车动画
+            this.jump(index)
+        }
+
+        // 减少
+        decrease(index) {
+            this.uiData.decrease(index)
+            this.updateGoodsItem(index)
+            this.updateFooter()
+
+        }
+
+        // 更新某个商品元素的显示状态
+        updateGoodsItem(index) {
+            // 每个商品的Dom 
+            var goodsDom = this.doms.goodsLists.children[index]
+            // 减dom
+            var decrease = goodsDom.getElementsByClassName('decrease')[0]
+            // 数量dom
+            var num = goodsDom.getElementsByClassName('num')[0]
+            // 判断是否选择的商品>0
+            if (this.uiData.isChoose(index)) {
+                // 增加active
+                decrease.classList.add('active')
+                num.classList.add('active')
+            } else {
+                decrease.classList.remove('active')
+                num.classList.remove('active')
+            }
+            // 更新商品数量
+            num.textContent = this.uiData.uiGoods[index].choose
+        }
+
+        // 更新页脚数据
+        updateFooter() {
+            // 修改配送费
+            this.doms.deliveryPrice.textContent = `配送费￥${this.uiData.deliveryPrice}`
+            // 修改商品总价
+            this.doms.totalPrice.textContent = `￥${this.uiData.getTotalPrice()}`
+            // 修改还差多少元起送
+            this.doms.is.textContent = `还差￥${this.uiData.upToSend - this.uiData.getTotalPrice()}元起送`
+            // 修改页脚商品数量
+            if (this.uiData.getTotalNum() > 0) {
+                this.doms.car.classList.add('active')
+                this.doms.car.style.background = 'rgb(68 151 253)'
+                this.doms.car.setAttribute('data-before', this.uiData.getTotalNum())
+            } else if (this.uiData.getTotalNum() === 0) {
+                this.doms.car.classList.remove('active')
+                this.doms.car.style.background = 'rgb(129 104 104)'
+            }
+            // 判断是否达到配送门槛>=30
+            if (this.uiData.isUpToSend()) {
+                // 增加active
+                this.doms.go.classList.add('active')
+                this.doms.is.classList.remove('active')
+            } else {
+                this.doms.go.classList.remove('active')
+                this.doms.is.classList.add('active')
+            }
+        }
+
+        // 购物车动画
+        carAnimation() {
+            this.doms.car.classList.add('animation')
+            // 监听动画完成（这里监听会调用一次监听一次，所有一开始就就监听）
+            // 普通函数（this指向注册监听事件的元素）
+            // this.doms.car.addEventListener('animationend',function() {
+            //     console.log(this)
+            //     this.doms.car.classList.remove('animation')
+            // })
+            // 箭头函数（this指向原来的对象）
+            // this.doms.car.addEventListener('animationend',() =>{
+            //     console.log(this)
+            //     this.doms.car.classList.remove('animation')
+            // })
+        }
+
+        // 抛物线跳跃的元素
+        jump(index) {
+            // 找到对应商品加号
+            var addBtn = this.doms.goodsLists.children[index].querySelector('.img')
+            // 获取绑定客户端矩形
+            var rect = addBtn.getBoundingClientRect()
+            var start = {
+                x: rect.left,
+                y: rect.top
+            }
+            // 动态创建div
+            var div = document.createElement('div')
+            var i = document.createElement('i')
+            div.className = 'add-box'
+            i.className = 'add-to-car'
+            // 设置(add-box)初始x位置
+            div.style.transform = `translateX(${start.x - 5}px)`
+            // 设置(add-to-car)初始y位置
+            i.style.transform = `translateY(${start.y - 5}px)`
+            div.appendChild(i)
+            document.body.appendChild(div)
+
+            // 强行渲染
+            // 强制渲染dom的代码可以使用以下一些dom的属性：offsetTop, offsetLeft, offsetWidth, offsetHeight
+            // scrollTop, scrollLeft, scrollWidth, scrollHeight
+            // clientTop, clientLeft, clientWidth, clientHeight
+            div.offsetTop;
+            // 设置(add-box)结束x位置
+            div.style.transform = `translateX(${this.jumpTarget.x}px)`
+            // 设置(add-to-car)结束y位置
+            i.style.transform = `translateY(${this.jumpTarget.y}px)`
+
+            // 如果没有所箭头函数需要将this保存一下
+            // var that = this
+            
+            // 过渡结束
+            // 因为事件冒泡i>div所以会触发两次,利用once:true解决
+            div.addEventListener('transitionend', () => {
+                // console.log('过渡完成')
+                // 删除div
+                div.remove()
+                this.carAnimation()
+            }, {
+                once: true //仅触发一次
+            })
+        }
+
+    }
+    var ui = new UI()
+
+    // 绑定点击事件
+    ui.doms.goodsLists.addEventListener('click', (e) => {
+        if (e.target.classList.contains('img')) {
+            // 怎么拿到index呢？在动态循环创建的时候 添加一个属性 index 通过getAttribute('index')获取或dataset.index，
+            //var index =  e.target.getAttribute('data-index')
+            var index = e.target.dataset.index
+            ui.increase(index)
+        } else if (e.target.classList.contains('decrease')) {
+            var index = e.target.dataset.index
+            console.log(index)
+            ui.decrease(index)
+        }
+    })
+
+    // 绑定键盘事件
+    window.addEventListener('keypress', (e) => {
+        var keycode = e.code //拿到键
+        if (keycode === 'Equal') {
+            ui.increase(0)
+        }
+        if (keycode === 'Minus') {
+            ui.decrease(0)
+        }
+    })
+
+
+</script>

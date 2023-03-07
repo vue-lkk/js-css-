@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #container {
+            width: 90%;
+            margin: 20px auto;
+            /* border: 2px solid rgb(5, 5, 5); */
+            position: relative;
+            /*相对定位*/
+        }
+
+        #container img {
+            position: absolute;
+            /*绝对定位*/
+            transition: 0.3s;
+            /*图片过渡*/
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+</body>
+
+</html>
+<script>
+    // var divContainer = document.getElementById('container')
+    // var imgWidth = 220; //每张图片的固定宽度
+
+    // /** 
+    //  * 加入图片元素
+    //  */
+    // function createImgs() {
+    //     for (var i = 1; i <= 20; i++) {
+    //         if (i >= 17 && i <= 19 || i == 7) {
+    //             var src = `瀑布流图片/${i}.jpg`
+    //         } else {
+    //             var src = `瀑布流图片/${i}.webp` // 生成图片的src路径
+    //         }
+    //         var img = document.createElement('img')
+    //         // 只要创建出来一张图片就调用
+    //         window.onload = setPositions
+    //         img.src = src //设置src路径
+    //         img.style.width = imgWidth + 'px'
+    //         divContainer.appendChild(img) // 添加到容器
+    //     }
+    // }
+    // createImgs()
+
+
+    // /**
+    //  * 计算一共有多少列，以及一列之间的间隙
+    //  */
+    // function cal() {
+    //     var containerWidth = divContainer.clientWidth; // 容器的宽度
+    //     var colcmns = Math.floor(containerWidth / imgWidth) // 计算列数(向上取整)
+    //     var spaceNumber = colcmns + 1 // 计算间隙数
+    //     var spareSpace = containerWidth - colcmns * imgWidth // 计算剩余的空间
+    //     var oneSpace = spareSpace / spaceNumber // 计算平分后的间隙空间
+    //     return {
+    //         colcmns,
+    //         spaceNumber,
+    //         spareSpace,
+    //         oneSpace,
+    //         colcmns
+    //     }
+    // }
+    // cal()
+
+
+    // /**
+    //  * 计算每一张图片的位置
+    //  */
+    // function setPositions() {
+    //     var info = cal();//得到列数和间隔的空间
+    //     var nextTops = new Array(info.colcmns) // 该数组的长度为列数，每一项表示该列的下一个图片的纵坐标,不停的修改数组
+    //     nextTops.fill(0) // 将数组的每一项填充为0
+    //     for (var i = 0; i < divContainer.children.length; i++) {
+    //         var img = divContainer.children[i]
+    //         //找到nextTops中的最小值作为当前图片的纵坐标
+    //         var minTop = Math.min.apply(null, nextTops)
+    //         // 纵坐标
+    //         img.style.top = minTop + 'px'
+    //         //重新设置数组这一项的下一个top值（索引值）
+    //         var index = nextTops.indexOf(minTop)// 得到使用的是第几列的top值
+    //         // 累计加赋值 （图片的高度 + 平分的间隙）
+    //         nextTops[index] += img.height + info.oneSpace
+    //         // 横坐标 （平分的间隙要加1,因为左右有空隙）
+    //         var left = (index + 1) * info.oneSpace + index * imgWidth
+    //         img.style.left = left + 'px'
+    //     }
+    //     // 拿到数组中的最大高度
+    //     var max = Math.max.apply(null, nextTops)
+    //     // 将最大高度赋值给容器,不然容器会塌陷
+    //     divContainer.style.height = max + 'px'
+    // }
+
+
+    // /**
+    //  * 窗口尺寸变换
+    //  */
+    // var timerId = null
+    // window.onresize = function () {
+    //     if (timerId) {
+    //         clearTimeout(timerId)
+    //     }
+    //     timerId = setTimeout(setPositions, 100);
+    // }
+
+
+
+
+
+    // 类
+    class WaterfallFlow {
+        constructor() {
+            this.divContainer = document.getElementById('container')
+            this.imgWidth = 220; //每张图片的固定宽度
+            this.timerId = null
+            this.createImgs()
+            this.setPositions()
+        }
+
+        createImgs() {
+            for (var i = 1; i <= 20; i++) {
+                if (i >= 17 && i <= 19 || i == 7) {
+                    var src = `瀑布流图片/${i}.jpg`
+                } else {
+                    var src = `瀑布流图片/${i}.webp` // 生成图片的src路径
+                }
+                var img = document.createElement('img')
+                // 只要创建出来一张图片就调用
+                window.onload = this.setPositions
+                img.src = src //设置src路径
+                img.style.width = this.imgWidth + 'px'
+                this.divContainer.appendChild(img) // 添加到容器
+            }
+        }
+
+        cal() {
+            var containerWidth = this.divContainer.clientWidth; // 容器的宽度
+            var colcmns = Math.floor(containerWidth / this.imgWidth) // 计算列数
+            var spaceNumber = colcmns + 1 // 计算间隙数
+            var spareSpace = containerWidth - colcmns * this.imgWidth // 计算剩余的空间
+            var oneSpace = spareSpace / spaceNumber // 计算平分后的间隙空间
+            return {
+                colcmns,
+                spaceNumber,
+                spareSpace,
+                oneSpace,
+                colcmns
+            }
+        }
+
+
+        setPositions() {
+            var info = this.cal();//得到列数和间隔的空间
+            var nextTops = new Array(info.colcmns) // 该数组的长度为列数，每一项表示该列的下一个图片的纵坐标,不停的修改数组
+            nextTops.fill(0) // 将数组的每一项填充为0
+            for (var i = 0; i < this.divContainer.children.length; i++) {
+                var img = this.divContainer.children[i]
+                //找到nextTops中的最小值作为当前图片的纵坐标
+                var minTop = Math.min.apply(null, nextTops)
+                // 纵坐标
+                img.style.top = minTop + 'px'
+                //重新设置数组这一项的下一个top值（索引值）
+                var index = nextTops.indexOf(minTop)// 得到使用的是第几列的top值
+                // 累计加 （图片的高度 + 平分的间隙）
+                nextTops[index] += img.height + info.oneSpace
+                // 横坐标 （平分的间隙要加1,因为左右有空隙）
+                var left = (index + 1) * info.oneSpace + index * this.imgWidth
+                img.style.left = left + 'px'
+            }
+            var max = Math.max.apply(null, nextTops)
+            this.divContainer.style.height = max + 'px'
+        }
+    }
+    
+    var item = new WaterfallFlow()
+    console.log(item.setPositions)
+
+    var timerId = null
+    window.onresize = function () {
+        if (timerId) {
+            clearTimeout(timerId)
+        }
+        timerId = setTimeout(item.setPositions, 100);
+    }
+
+</script>

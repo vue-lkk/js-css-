@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            width: 520px;
+            height: 600px;
+            background: blanchedalmond;
+        }
+        ul{
+            width: 100%;
+            height: 100%;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        li{
+            width: 100px;
+            height: 100px;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+        }
+        /* 两排 */
+        li:last-child:nth-child(4n+2){
+           margin-right: calc((100% - 100px) / 3*2);
+        }
+        /* 三排 */
+        li:last-child:nth-child(4n+3){
+           margin-right: calc((100% - 100px) / 3*1);
+        }
+    </style>
+</head>
+<body>
+    <h1>
+注：E:nth-child(n)选择器匹配父元素中的第n个子元素E(是第n个子元素且是E元素才生效)。
+n可以是一个数字，一个关键字，或者一个公式。
+
+nth-child（n）用法：
+1、nth-child(3)
+表示选择列表中的第3个标签，代码如下：
+
+2、nth-child(2n)
+表示选择列表中的偶数标签，即选择 第2、第4、第6…… 标签，代码如下：
+
+3、nth-child(2n-1)
+表示选择列表中的奇数标签，即选择 第1、第3、第5、第7……标签，代码如下：
+
+4、nth-child(n+3)
+表示选择列表中的标签从第3个开始到最后（正向选择），代码如下：
+
+5、nth-child(-n+3)
+表示选择列表中的标签从0到3，即小于3的标签（逆向选择），代码如下：
+
+6、nth-last-child(3)
+表示选择列表中的倒数第3个标签，代码如下：
+
+first-child用法：
+1、first-child
+first-child表示选择列表中的第一个标签
+
+last-child用法：
+1、last-child
+last-child表示选择列表中的最后一个标签，代码如下：
+
+    </h1>
+    <div>
+        <ul>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            <li><img src="./images//firefox.webp" alt=""></li>
+            
+            
+        </ul>
+    </div>
+</body>
+</html>

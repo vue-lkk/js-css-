@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>语法：substr(start,length)</h1>
+        <p>start，提取字符的位置。如果为负值，则被看作 a.length + start，
+            其中 a.length 为字符串的长度（例如，如果 start 为 -3，则被看作 a.length + (-3)）。
+            length，可选可不选。选择则输入要提取的字符数，不选就是全部。
+        </p>
+
+        <h1>语法: substring(star,end)</h1>
+        <p>substring：是提取字符串中两个指定索引号之间的字符。
+            start为需要截取的第一个字符的索引，该索引位置的字符作为返回的字符串的首字母
+            end，可选。一个 0 到字符串长度之间的整数，以该数字为索引的字符不包含在截取的字符串内
+        </p>
+    </div>
+
+    <script>
+        var str = 'fskde'
+        console.log(str.substr(2,3))
+        console.log(str.substr(-3))
+
+        console.log(str.substring(2,3))
+    </script>
+</body>
+</html>

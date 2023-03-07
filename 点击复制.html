@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onClick="copyUrl()" >点击按钮复制浏览器打开连接</button>
+  <!-- 设置富文本框标签,绝对定位，透明度为0 -->
+  <textarea cols="20" style="position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;" rows="10" id="url"></textarea>
+  <!-- <input style="position: absolute;top: 0;left: 0;opacity: 0;z-index: -10;" id="inp" value="kyui667"/> -->
+  
+
+  <script type="text/javascript">
+
+    function copyUrl(){
+      var Url=document.getElementById("url");     // 通过id拿到富文本框标签
+      Url.value = "http://www.baidu.com/";        // 内容为
+      Url.select();                               // 选择对象
+      document.execCommand("Copy");               // 执行浏览器复制命令
+      alert("已复制好，可贴粘。");
+    }
+  </script>
+</body>
+</html>

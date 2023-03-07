@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>思路：通过窗口尺寸</title>
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="rain"></canvas>
+  <script>
+    window.onload = () => {
+      // 获取canvas元素
+      const canvas = document.getElementById('rain');
+      // 获取窗口尺寸
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      // 获取canvas尺寸为窗口尺寸
+      canvas.width = width;
+      canvas.height = height;
+      // 获取绘制上下文
+      const ctx = canvas.getContext('2d');
+      // 列宽
+      const colWidth = 20;
+      // 列数
+      const colCount = Math.floor(width/colWidth);
+      // 创建一个数组记录每一列写到第几个文字
+      const colNextIndex = new Array(colCount);
+      // 使用固定值填充数组
+      colNextIndex.fill(1);
+      console.log(colNextIndex)
+
+      // 绘画的函数
+      function draw(){
+        // 填充颜色(一直重新创建覆盖)
+        ctx.fillStyle = 'rgba(240,240,240,.1)';
+        // 填充矩形 (一直重新创建覆盖)
+        ctx.fillRect(0,0,width,height)
+        // 列高距
+        const fz = 30;
+        // 填充颜色
+        // ctx.fillStyle = getRandomColor();
+        // 画笔颜色
+        ctx.strokeStyle = getRandomColor();
+        // 文字字体
+        ctx.font = `${fz}px "Roboto Mono"`;
+        // 循环数组
+        for(let i = 0; i < colCount; i++) {
+          // x坐标值
+          const x = i * colWidth;
+          // y坐标值
+          const y = fz * colNextIndex[i];
+          // 绘制文本
+          ctx.strokeText(getRandomChar(), x,y);
+          // 条件筛选
+          if(y > height && Math.random() > 0.99) {
+            colNextIndex[i] = 0;
+          }
+          // 所有项加1
+          colNextIndex[i]++;
+          
+        }
+        
+      }
+
+      // 随机颜色
+      function getRandomColor() {
+        const fontColors = [
+          '#33B5E5',
+          '#0099CC',
+          '#0099CC',
+          '#AA66CC',
+          '#99CC00',
+          '#669900',
+          '#FFBB33',
+          '#FF8800',
+          '#FF4444',
+          '#CC0000',
+        ]
+        return fontColors[Math.floor(Math.random() * 10)]
+      }
+
+      // 随机文字
+      function getRandomChar() {
+        // const str = "console.log('hello world')";
+        const str = "console.log('hello world')345465453253453453456rfgdgcfhfgh5";
+        return str[Math.floor(Math.random() * str.length)];
+      }
+
+      // 调用
+      draw()
+      setInterval(() => {
+        draw()
+      }, 50);
+    }
+
+
+
+
+    
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      text-align: center;
+      background-color: aqua;
+    }
+    .p1{
+      font-size: 60px;
+      /* 兼容性好，但是阴影不够圆滑，又不能设置文字颜色为透明 */
+      /* 6个方向的文本阴影 */ 
+      text-shadow: 
+      0 2px #fff,
+      0 -2px #fff,
+      -2px 2px #fff,
+      2px 2px #fff,
+      -2px 0px #fff,
+      2px 0px #fff;
+      color: transparent;
+    }
+    .p2{
+      font-size: 60px;
+      /* 利用非标准属性，webkit内核搞出来的属性 */
+      /* 兼容性不好，但是阴影圆滑，又能设置文字颜色为透明 */
+      /* 文本-画笔 */
+      -webkit-text-stroke: 2px #fff;
+      color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <P class="p1">TEXT STROKE</P>
+  <p class="p2">-WEBKIT-TEXT STROKE</p>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./data.js"></script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+    var Goods = {
+        pic: '',
+        title: '',
+        desc: '',
+        sellNUmber: '',
+        favorRate: '',
+        price: ''
+    }
+
+    class UI {
+        constructor(g) {
+            this.data = g;
+            this.choose = 0;
+        }
+    }
+    var g = new UI(Goods);
+
+    // 问题1：可以修改，但是是不允许修改的
+    g.data = 'abc';
+    console.log(g.data);
+
+    // 获取到属性描述
+    var attribute_descriptor = Object.getOwnPropertyDescriptor(Goods, 'pic');
+    console.log(attribute_descriptor)
+
+    // 设置属性描述符
+    Object.defineProperty(Goods, 'pic', {
+        value: '999',
+        writable: false, // 不可重写
+        enumerable: false, // 不可枚举(遍历)
+        // configurable: false, // 不可重写属性描述符
+    })
+    // 设置了configurable: false再重写属性描述符(报错)
+    Object.defineProperty(Goods, 'pic', {
+        value: '999',
+        writable: true,
+        enumerable: false
+    })
+
+
+
+
+
+
+
+    // (进阶1)通过Object.defineProperty来定义属性,但是修改了没有提示报错不能修改，会误导找不出错误
+    class UI_1 {
+        constructor(g) {
+            Object.defineProperty(this, 'data', {
+                value: g,
+                writable: false,
+                configurable: false
+            })
+        }
+    }
+
+    var u = new UI_1(goods)
+    u.data = '123' // 应该报错，但是没有
+    console.log(u.data)
+
+
+
+
+    // 案例解析
+    var obj = {}
+    // 中间变量
+    var internavalue = undefined
+    Object.defineProperty(obj, 'a', {
+        // 除了value,writable,enumerable,configurable以外，还有 get(),set()
+        get: function () {
+            return internavalue
+        }, // 读取器 getter
+        set: function (val) {
+            internavalue = val
+            // throw new Error('这个属性不能赋值')
+        }  // 设置器 setter
+    })
+
+    console.log(obj.a) //执行get()
+    console.log(obj.a = 0)     //执行set()
+
+
+
+
+    // 最终写法
+    class UI_2 {
+        constructor(g) {
+            // 克隆
+            g = {...g}
+            // 对象冻结
+            Object.freeze(g)
+            Object.defineProperty(this, 'data', {
+                get: function () {
+                    return g
+                },
+                set: function () {
+                    throw new Error('data属性只读，不能赋值')
+                },
+                configurable: false
+            })
+
+            // 中间变量
+            var internalChooseValue = 0
+            Object.defineProperty(this, 'choose', {
+                get: function () {
+                    return internalChooseValue
+                },
+                set: function (val) {
+                    if (typeof val !== 'number') {
+                        throw new Error('choose属性必须是数字')
+                    }
+                    var temp = parseInt(val)
+                    if (temp !== val) {
+                        throw new Error('choose属性必须是整数')
+                    }
+                    if (val < 0) {
+                        throw new Error('choose属性必须是大于等于0')
+                    }
+                    internalChooseValue = val
+                },
+                configurable: false
+            })
+
+            // 总价
+            Object.defineProperty(this, 'totalPrice', {
+                get: function () {
+                    return this.choose * this.data[0].price
+                }
+            })
+            // 数量是否>0
+            Object.defineProperty(this,'isChoose',{
+                get() {
+                    return this.choose > 0
+                }
+            })
+
+        }
+
+
+        // 语法糖写法
+        get totalPrice1() {
+            return this.choose * this.data[0].price
+        }
+        // 语法糖写法
+        get isChoose1() {
+            return this.choose > 0
+        }
+
+
+    }
+    var p = new UI_2(goods)
+    p.choose = 2
+    p.data[0].pic='999'
+    console.log(p.totalPrice,p.totalPrice1,p.isChoose,p.isChoose1)
+
+
+</script>

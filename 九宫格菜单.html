@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #354269;
+        min-height: 100vh;
+      }
+
+
+      /* 九宫格盒子 */
+      .navigate {
+        position: relative;
+        width: 70px;
+        height: 70px;
+        background: #212531;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* 动画过渡 */
+        transition: all 0.5s;
+        /* 延迟缩小 */
+        transition-delay: 0.4s;
+      }
+      /* 点击九宫格盒子放大 */
+      .navigate.active {
+        width: 200px;
+        height: 200px;
+        /* 不延迟放大 */
+        transition-delay: 0s;
+      }
+
+
+      /* 9格 */
+      .navigate span {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 7px;
+        height: 7px;
+        background: #fff;
+        border-radius: 50%;
+        /* 计算9个小格位置 */
+        transform: translate(calc(12px * var(--x)), calc(12px * var(--y)));
+        /* 动画过渡 */
+        transition: all 0.5s;
+        /* 计算延迟 */
+        transition-delay: calc(0.05s*var(--i));
+      }
+      /* 点击9格放大 */
+      .navigate.active span{
+        width: 45px;
+        height: 45px;
+        background: #333849;
+        /* 计算9个小格位置 */
+        transform: translate(calc(60px * var(--x)), calc(60px * var(--y)));
+      }
+
+      /* 图标 */
+      .navigate span ion-icon{
+        font-size: 0em;
+        transition: all 0.5s;
+        transition-delay: calc(0.05s*var(--i));
+      }
+      /* 图标放大 */
+      .navigate.active span ion-icon{
+        font-size: 1.35em;
+        color: #fff;
+        transition-delay: 0s;
+      }
+      .navigate.active span:hover ion-icon{
+        color: #2dfc52;
+        filter: drop-shadow(0 0 2px #2dfc52) drop-shadow(0 0 5px #2dfc52) drop-shadow(0 0 15px #2dfc52);
+      }
+
+    </style>
+  </head>
+  <body>
+    <div>图标网站：https://ionic.io/ionicons</div>
+    <div class="navigate">
+      <span style="--i: 0; --x: -1; --y: -1"><ion-icon name="car-sport-outline"></ion-icon></span>
+      <span style="--i: 4; --x: 0; --y: -1"><ion-icon name="cash-outline"></ion-icon></span>
+      <span style="--i: 2; --x: 1; --y: -1"><ion-icon name="battery-half-outline"></ion-icon></span>
+      <span style="--i: 8; --x: -1; --y: 0"><ion-icon name="add-circle-outline"></ion-icon></span>
+      <span style="--i: 3; --x: 0; --y: 0"><ion-icon name="finger-print-outline"></ion-icon></span>
+      <span style="--i: 7; --x: 1; --y: 0"><ion-icon name="invert-mode-outline"></ion-icon></span>
+      <span style="--i: 6; --x: -1; --y: 1"><ion-icon name="power-outline"></ion-icon></span>
+      <span style="--i: 1; --x: 0; --y: 1"><ion-icon name="snow-outline"></ion-icon></span>
+      <span style="--i: 5; --x: 1; --y: 1"><ion-icon name="snow-outline"></ion-icon></span>
+    </div>
+  </body>
+  <!-- 图标引入 -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script>
+    // 获取点击DOM
+    var navigate = document.querySelector(".navigate");
+    var body = document.querySelector('body')
+    // 绑定点击事件
+    navigate.onclick = function () {
+      // 点击来回切换添加、删除active类
+      navigate.classList.toggle("active");
+      const Dom = document.createElement('div')
+      body.appendChild(Dom)
+    };
+  </script>
+</html>

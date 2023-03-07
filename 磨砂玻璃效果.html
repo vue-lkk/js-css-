@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: rgb(29 28 27);
+    }
+    .wrap{
+      position: relative;
+    }
+    h2{
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      font-size: 60px;
+      color: #fff;
+    }
+    .mo{
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 160px;
+      height: 60px;
+      background-color: rgb(141, 198, 236);
+      opacity: 0.5;
+      /* 只能磨砂自身标签 */
+      /* filter: blur(5px); */
+      /* 可以磨砂被自身遮挡的标签 */
+      /* 位于……后面-滤镜:模糊 */
+      backdrop-filter: blur(1px);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>ERERTERT</h2>
+    <div class="mo"></div>
+  </div>
+  
+</body>
+</html>

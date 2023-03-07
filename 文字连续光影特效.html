@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background-color: black;
+    }
+    span{
+      color: #fff;
+      font-size: 100px;
+      animation: shadowing 3s ease-in-out infinite alternate;
+    }
+    span:nth-child(2){
+      animation-delay: 0.2s;
+    }
+    span:nth-child(3){
+      animation-delay: 0.4s;
+    }
+    span:nth-child(4){
+      animation-delay: 0.6s;
+    }
+    span:nth-child(5){
+      animation-delay: 0.8s;
+    }
+    span:nth-child(6){
+      animation-delay: 1s;
+    }
+    span:nth-child(7){
+      animation-delay: 1.2s;
+    }
+    @keyframes shadowing {
+      to{
+        color: red;
+        text-shadow: 20px 0 78px red;
+      }
+      from{
+        color: rgb(34, 3, 209);
+        text-shadow: 20px 0 78px rgb(18, 48, 180);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <span>Q</span>
+    <span>T</span>
+    <span>F</span>
+    <span>E</span>
+    <span>B</span>
+    <span>U</span>
+    <span>A</span>
+  </div>
+</body>
+</html>

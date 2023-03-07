@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+      background-color: rgb(80 81 82);
+    }
+    /* 按钮 */
+    button{
+      position: relative;
+      margin-top: 20%;
+      left: 50%;
+      /* 变形：变换 */
+      transform: translate(-50%,-50%); 
+      width: 200px;
+      height: 80px;
+      background: rgb(80 81 82);
+      color: aqua;
+      /* 去掉轮廓和边框 */
+      outline: none;
+      border: none;
+      /* 重新设置轮廓 */
+      /* outline: 2px solid rgb(228, 96, 20); */
+      overflow: hidden;
+      z-index: 1;
+    }
+    /* 遮罩层 */
+    button::before{
+      content: '';
+      display: block;
+      position:absolute;
+      width: calc(100% - 4px);
+      height: calc(100% - 4px);
+      background-color:rgb(27, 28, 29);
+      top: 2px;
+      left: 2px;
+      z-index: -2;
+    }
+
+    /* 旋转层 */
+    button::after{
+      position:absolute;
+      top: 50%;
+      left: 50%;
+      content: '';
+      display: block;
+      /* width: 135%;
+      height: 135%; */
+      /* background-color: aqua; */
+      border-top:60px solid rgb(255, 255, 255);
+      border-left:60px solid rgb(226, 104, 5);
+      border-right:60px solid rgb(255, 255, 255);
+      border-bottom:60px solid rgb(160, 9, 102);
+      animation: btn 3s infinite linear;
+      /* 改变旋转原点 */
+      transform-origin:0px 0px;
+      z-index: -999;
+    }
+    
+    /* 动画 */
+    /* 关键帧 */
+    @keyframes btn {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <button>特效按钮</button>
+  </div>
+</body>
+</html>

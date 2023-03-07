@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>scrollIntoView（滚动到显示处）：behavior（行为）:smooth（平滑）</title>
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+    }
+    div{
+      width: 300px;
+      height: 150px;
+      overflow: hidden;
+      margin: 10% 40%;
+    }
+    ul{
+      width: 900px;
+      height: 150px;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: center;
+      line-height: 150px;
+      float: left;
+    }
+    li{
+      width: 300px;
+      height: 100%;
+      float: left;
+    }
+    ul>li:nth-child(1){
+      background-color: rgb(18, 221, 221);
+    }
+    ul>li:nth-child(2){
+      background-color: rgb(224, 103, 22);
+    }
+    ul>li:nth-child(3){
+      background-color: rgb(81, 228, 13);
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+  <div>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+  </div>
+
+  <script>
+    var li = document.querySelectorAll('li')
+    var btn = document.querySelectorAll('button')
+    console.log(li)
+    btn[0].addEventListener('click',() => {
+      li[0].scrollIntoView({behavior:"smooth"})
+    })
+    btn[1].addEventListener('click',() => {
+      li[1].scrollIntoView({behavior:"smooth"})
+    })
+    btn[2].addEventListener('click',() => {
+      li[2].scrollIntoView({behavior:"smooth"})
+    })
+
+
+  </script>
+</body>
+</html>

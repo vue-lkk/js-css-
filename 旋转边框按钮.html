@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background: #28282b;
+        padding: 100px;
+      }
+      /* 卡片层 */
+      .card {
+        background: #66666b;
+        width: 200px;
+        height: 300px;
+        position: relative;
+        border-radius: 6px;
+        border: 1px solid rgb(7, 6, 6);
+        text-align: center;
+        line-height: 300px;
+        color: #ccc;
+      }
+      
+      .card::before {
+        content: "";
+        width: 210px;
+        height: 310px;
+        border-radius: 8px;
+        border: 1px solid #fff;
+
+        /* background-image: linear-gradient(0deg,#5ddcff,#3c67e3,#4e4e88); */
+        background-image: linear-gradient(
+          var(--rotate),
+          #f13a19,
+          #ffffff,
+          #0b3bd8
+        );
+
+        position: absolute;
+        animation: spin 3s linear infinite;
+        top: -6px;
+        left: -6px;
+        z-index: -1;
+      }
+
+      /* 自定义属性 */
+      @property --rotate {
+        syntax: "<angle>";
+        inherits: false;
+        initial-value: 0deg;
+      }
+      @keyframes spin {
+        0% {
+          --rotate: 0deg;
+        }
+        100% {
+          --rotate: 360deg;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">王者荣耀</div>
+  </body>
+</html>

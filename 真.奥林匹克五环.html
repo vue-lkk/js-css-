@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+    }
+    ul{
+      padding: 0;
+      margin: 0;
+      position:relative;
+      margin: 200px 100px;
+      transform-style: preserve-3d;
+      perspective: 1200px;
+    }
+    ul>li{
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      list-style: none;
+    }
+    ul:hover li{
+      box-shadow: 2px 2px 10px rgb(0, 0, 0);
+    }
+    ul>li:nth-child(1){
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 5px solid rgb(15, 64, 121);
+    }
+    ul>li:nth-child(2){
+      border: 5px solid gold;
+      position: absolute;
+      top: 75px;
+      left: 60px;
+      transform: translateZ(-1px) rotateY(2deg);
+    }
+    ul>li:nth-child(3){
+      border: 5px solid rgb(0, 0, 0);
+      position: absolute;
+      top: 0px;
+      left: 120px;
+      transform: translateZ(-1px) rotateY(-2deg);
+    }
+    ul>li:nth-child(4){
+      border: 5px solid rgb(13, 129, 2);
+      position: absolute;
+      top: 75px;
+      left: 180px;
+      transform: translateZ(-1px) rotateY(2deg);
+    }
+    ul>li:nth-child(5){
+      border: 5px solid rgb(206, 17, 4);
+      position: absolute;
+      top: 0px;
+      left: 240px;
+      transform: translateZ(-1px) rotateY(-2deg);
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+</body>
+</html>
