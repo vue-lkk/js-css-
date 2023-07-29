@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .container{
+      position: relative;
+      top: 200px;
+    }
+    .container .content{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%);
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      width: 200px;
+      height: 300px;
+      overflow: hidden;
+
+    }
+    .box{
+      font-style: none;
+      width: 600px;
+      height: 900px;
+      transform: translate(-200px,-300px);
+      transition: all 1s;
+    }
+    .box img{
+      
+      position: absolute;
+      width: 200px;
+      height: 300px;
+      
+    }
+    .t{
+      left: 200px;
+    }
+    .l{
+      top: 300px;
+    }
+    .main{
+      left: 200px;
+      top: 300px;
+    }
+    .r{
+      left: 400px;
+      top: 300px;
+    }
+    .b{
+      left: 200px;
+      top: 600px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <div class="box">
+        <img src="./瀑布流图片/2.webp" alt="" class="t">
+        <img src="./瀑布流图片/3.webp" alt="" class="l">
+        <img src="./瀑布流图片/1.webp" alt="" class="main">
+        <img src="./瀑布流图片/4.webp" alt="" class="r">
+        <img src="./瀑布流图片/5.webp" alt="" class="b">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const content = document.querySelector('.content')
+    const box = document.querySelector('.box')
+    // 获取绑定客户端矩形
+    const rect = content.getBoundingClientRect()
+    // 三角函数 tan 值
+    const theta = Math.atan(rect.height / rect.width);
+
+    console.log(theta)
+    // 事件监听
+    let dire
+    content.addEventListener('mouseenter',(e) => {
+      const x = e.offsetX - rect.width / 2;
+      const y = rect.height / 2 -  e.offsetY;
+      const d = Math.atan2(x,y)
+      if(d < theta && d >= -theta){
+        dire = 'up'
+        box.style.transform= "translate(" + -200 +'px' + ',' + 0 +'px'+ ")";
+      }else if(d>=theta && d< Math.PI-theta){
+        dire = 'right'
+        box.style.transform= "translate(" + -400 +'px' + ',' + -300 +'px'+ ")";
+      }else if(d<-theta && d>=theta - Math.PI){
+        dire = 'left'
+        box.style.transform= "translate(" + 0 +'px' + ',' + -300 +'px'+ ")";
+      }else{
+        dire = 'down'
+        box.style.transform= "translate(" + -200 +'px' + ',' + -600 +'px'+ ")";
+      }
+      console.log(dire)
+    })
+    content.addEventListener('mouseleave',() => {
+      box.style.transform= "translate(" + -200 +'px' + ',' + -300 +'px'+ ")";
+    })
+  </script>
+</body>
+</html>

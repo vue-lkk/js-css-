@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .icon1 {
+      /* 颜色填充 */
+      fill: #fff;
+      /* 图形元素的外轮廓的颜色 */
+      stroke: rgb(14, 203, 216);
+      /* 图形元素的外轮廓宽度 */
+      stroke-width: 5;
+      /* 两端的形状 */
+      stroke-linecap: round;
+      /* 动画过渡 */
+      transition: fill 1.5s;
+    }
+
+    /* 动画 */
+    @keyframes move {
+      0% {
+        /* 指定线条长度和间隔，第一个值是线条长度，定值是空隙距离 */
+        stroke-dasharray: 0, 800px;
+      }
+
+      100% {
+        stroke-dasharray: 800px, 0;
+      }
+    }
+
+    .icon:hover {
+      animation: move 1.5s;
+    }
+
+    div {
+      width: fit-content;
+    }
+
+    div:hover .icon1 {
+      /* fill: aqua; */
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 在阿里巴巴矢量图标库复制svg -->
+  <div>
+    <svg t="1679555396172" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+      p-id="1650" width="200" height="200">
+      <path class="icon1"
+        d="M85.333333 853.333333h853.333334v85.333334H85.333333v-85.333334z m85.333334-341.333333h85.333333v298.666667H170.666667v-298.666667z m213.333333 0h85.333333v298.666667H384v-298.666667z m170.666667 0h85.333333v298.666667h-85.333333v-298.666667z m213.333333 0h85.333333v298.666667h-85.333333v-298.666667zM85.333333 298.666667l426.666667-213.333334 426.666667 213.333334v170.666666H85.333333V298.666667z m85.333334 52.736V384h682.666666v-32.597333l-341.333333-170.666667-341.333333 170.666667zM512 341.333333a42.666667 42.666667 0 1 1 0-85.333333 42.666667 42.666667 0 0 1 0 85.333333z"
+        fill="#000000" p-id="1651"></path>
+    </svg>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <button class="btn">防抖</button>
+  </div>
+  <script>
+    // 窗口尺寸
+    const win = window.addEventListener('resize',debounce(() => {
+      console.log(document.documentElement.clientWidth)
+    }))
+
+    const btn = document.querySelector('.btn')
+    btn.addEventListener('click',debounce(() => {
+      console.log(1)
+    }))
+
+    // 函数防抖
+    function debounce(fn,duration=1000){
+      console.log(1)
+      let timer;
+      return function() {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn()
+        }, duration);
+      }
+    }
+
+  </script>
+</body>
+</html>

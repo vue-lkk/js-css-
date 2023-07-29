@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>width: fit-content;</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    .container{
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      flex-direction: column;
+      max-width: 800px;
+      height: 600px;
+      background-color: antiquewhite;
+      margin:100px auto;
+    }
+    .hot{
+      display: flex;
+      /* 宽度自适应 */
+      width: fit-content;
+      background-color: rgb(3, 3, 56);
+      margin: 10px 0px;
+      border-radius: 5px;
+      color: #fff;
+      padding: 5px;
+    }
+    .content{
+      width: 90%;
+      height: 530px;
+      margin: 10px 0px;
+      background-color: rgb(13, 185, 228);
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hot">热门话题</div>
+    <div class="hot">热门话题1213</div>
+    <div class="hot">热门话题2343434</div>
+    <div class="content"></div>
+  </div>
+</body>
+</html>

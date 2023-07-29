@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文件上传</title>
+</head>
+<body>
+
+<!-- 
+1、接收所有格式的图像文件
+  设置accept="image/*"，规定在文件上传过程中，服务器只接受图像文件
+2、接收所有格式的图像文件
+  设置accept="video/*"，规定在文件上传过程中，服务器只接受视频文件
+3、接收所有的格式的声音文件
+  设置accept="audio/*"，规定在文件上传过程中，服务器只接受声音文件
+4、接收多个不同类型的文件
+  比如，规定可以上传所有图像和视频文件，那么，设置accept="video/*,image/*"，
+  再比如，想要规定可以上传图像、视频、声音三种文件类型，就可以设置accept="audio/*,video/*,image/*" -->
+  <input type="file" accept="image/*" multiple onchange="sendFile(files)">
+  <script>
+    function sendFile(files){
+      for(let i=0;i<files.length;i++){
+        uploadFile(files[i]);
+      }
+    }
+    // 处理上传文件函数
+    function uploadFile(file){
+      // 创建读取文件实例
+      const fileReader = new FileReader();
+      // 1.创建实例
+      const xhr = new XMLHttpRequest();
+
+      // 监听progresss事件
+      xhr.upload.addEventListener("progress",(e) => {
+        if(e.lengthComputable){
+          let p = Math.round((e.loaded * 100) / e.total)
+          const div = document.createElement('div')
+          div.innerHTML = p +'%'
+          document.body.appendChild(div)
+          console.log('上传进度：',p,'%')
+        }
+      })
+
+      // 监听load事件
+      xhr.upload.addEventListener('load',() => {
+        console.log('上传结束')
+      })
+
+      // 2.请求路径
+      xhr.open('POST','http://localhost:5500/');
+      // 调用文件读取完毕函数
+      fileReader.onload = function(evnet){
+        // 3. 发送请求
+        xhr.send(event.target.result)
+      }
+      fileReader.readAsArrayBuffer(file)
+    }
+  </script>
+</body>
+</html>

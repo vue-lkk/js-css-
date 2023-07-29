@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <div class="one">
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+      javascript高级应用<br />
+    </div>
+
+    <script>
+      window.onload = function () {
+        var oDiv = document.getElementsByTagName("div")[0];
+        console.log(oDiv.clientWidth + ":" + oDiv.clientHeight);
+        console.log(oDiv.offsetWidth+":"+oDiv.offsetHeight);
+        console.log(oDiv.clientLeft+":"+oDiv.clientTop);
+        console.log(oDiv.scrollHeight+":"+oDiv.scrollWidth);
+      };
+    </script>
+   <style>
+    .one{
+        width: 200px;
+        height: 200px;
+        background: red;
+        border: 1px solid #000000;
+        overflow: auto;
+    }
+    </style> -->
+
+    <body>
+      <div class="one">
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+        我是内容<br />
+      </div>
+    </body>
+    <script>
+      
+      window.onload = function () {
+        var oDiv = document.querySelector(".one");
+        oDiv.scrollTop = 20;
+        oDiv.onscroll = function () {
+          console.log(this.scrollHeight + ":" + this.scrollWidth);
+          
+        };
+        oDiv.onclick=function(ev){
+    var evt=ev||event;
+    console.log(evt.clientX+":"+evt.clientY);  
+}
+      };
+    </script>
+    <style>
+      .one {
+        width: 100px;
+        height: 100px;
+        overflow: auto;
+      }
+    </style>
+  </body>
+</html>

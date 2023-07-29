@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      width: 400px;
+      display: block;
+      margin: 0 auto;
+      /*circle(半径 at x圆点 y圆点) 裁剪成圆*/
+      /*clip-path: circle(30% at 50% 50%);*/
+
+      /*inset(上 左 下 右) 裁剪成矩形*/
+      /*clip-path: inset(10% 20% 30% 10%);*/
+      
+      -webkit-clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+      clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    CSS3剪贴路径（Clip-path）在线生成器工具:http://tools.jb51.net/code/css3path
+  </div>
+  <img src="./1.webp" alt="">
+</body>
+
+</html>

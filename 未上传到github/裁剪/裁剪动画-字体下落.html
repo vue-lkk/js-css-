@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    h1{
+      animation: slideDown 2s forwards;
+    }
+    @keyframes slideDown {
+      0%{
+        clip-path: inset(0% 0% 100% 0%);
+        transform: translateY(100%);
+      }
+      50%{
+        clip-path: inset(0% 0% 10% 0%);
+        transform: translateY(10%);
+      }
+      75%{
+        clip-path: inset(0% 0% 20% 0%);
+        transform: translateY(20%);
+      }
+      100%{
+        clip-path: inset(0% 0% 0% 0%);
+        transform: translateY(0%);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>A horse in the war</h1>
+  </div>
+</body>
+</html>
