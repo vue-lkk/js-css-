@@ -1,0 +1,36 @@
+#loading{
+  position: fixed;
+  top: 30px;
+  left: 46%;
+  span{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgb(2, 99, 15);
+    border-radius: 50%;
+    animation: loading 1s infinite ease-in-out; // 动画
+    @for $i from 1 to 6 {
+      &:nth-child(#{$i}){
+        left: 12px * ($i - 1);
+        animation-delay: 0.2s * ($i - 1); // 动画延迟
+      }
+    }
+  }
+}
+// 定义动画
+@keyframes loading {
+  0%{
+    opacity: 0.5;
+    transform: translateY(0px);
+  }
+  50%{
+    opacity: 0.1;
+    transform: translateY(-10px);
+    background: rgb(0, 0, 0);
+  }
+  100%{
+    opacity: 0.5;
+    transform: translateY(0px);
+  }
+}
+
